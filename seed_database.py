@@ -8,14 +8,8 @@ import crud
 import model
 import server
 
-db_uri, db_username, db_password = (os.environ["POSTGRES_URI"], os.environ["POSTGRES_USERNAME"], os.environ["POSTGRES_PASSWORD"])
-
-# os.system(f"dropdb -U postgres ratings")
-cmd1 = f'SET "PGPASSWORD={db_password}"'
-cmd2 = f'dropdb -U {db_username} ratings'
-cmd3 = f'createdb -U {db_username} ratings'
-os.system(cmd1 + ' && ' + cmd2)
-os.system(cmd1 + ' && ' + cmd3)
+cmd2 = 'dropdb -U postgres ratings'
+cmd3 = 'createdb -U postgres ratings'
 model.connect_to_db(server.app)
 model.db.create_all()
 
@@ -32,4 +26,19 @@ for movie in movie_data:
     movies_in_db.append(new_movie)
 
 model.db.session.add_all(movies_in_db)
+
+for n in range(10):
+    email = f'user{n}@test.com'
+    password = 'test'
+    user = crud.create_user(email, password)
+    model.db.session.add(user)
+
+    for _ in range(10):
+        random_movie = choice(movies_in_db)
+        score = randint(1, 5)
+
+        rating = crud.create_rating(score, random_movie, user)
+        model.db.session.add(rating)
+
 model.db.session.commit()
+
