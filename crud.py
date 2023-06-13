@@ -22,6 +22,10 @@ def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
 
+def check_login_password(user, password):
+    return user.password == password
+
+
 def create_movie(title, overview, release_date, poster_path):
     """Create and return a new movie"""
     movie = Movie(title=title, overview=overview,
