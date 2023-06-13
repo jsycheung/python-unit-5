@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.user_id }} - Details{% endblock %}
+
+{% block body %}
+<h1>User id: {{ user.user_id }}</h1>
+<p>User email: {{ user.email }}</p>
+{% endblock %}

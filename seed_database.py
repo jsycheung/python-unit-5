@@ -20,7 +20,8 @@ with open("data/movies.json") as f:
 # Create moview and store them in a list
 movies_in_db = []
 for movie in movie_data:
-    title, overview, poster_path = (movie["title"], movie["overview"], movie["poster_path"])
+    title, overview, poster_path = (
+        movie["title"], movie["overview"], movie["poster_path"])
     release_date = datetime.strptime(movie["release_date"], "%Y-%m-%d")
     new_movie = crud.create_movie(title, overview, release_date, poster_path)
     movies_in_db.append(new_movie)
@@ -41,4 +42,3 @@ for n in range(10):
         model.db.session.add(rating)
 
 model.db.session.commit()
-
