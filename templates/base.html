@@ -10,6 +10,11 @@
     {% block head %}{% endblock %}
   </head>
   <body>
+    {% if user_id %}
+      <h2>You are logged in as user_id {{ user_id }}</h2>
+    {% else %}
+      <h2>You are not logged in</h2>
+    {% endif %}
     {% for msg in get_flashed_messages() %}
       <p class="flash-msg">
         {{ msg }}
